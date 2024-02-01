@@ -4,9 +4,9 @@ const productGroupsSchema = new mongoose.Schema({
   productGroupName: String,
 });
 
-const productGroupVaritiesSchema = new mongoose.Schema({
+const productGroupVarietiesSchema = new mongoose.Schema({
   productGroupId: { type: mongoose.Schema.Types.ObjectId, ref: 'ProductGroups' },
-  productGroupVarityName: String,
+  productGroupVarietyName: String,
 });
 
 const originsSchema = new mongoose.Schema({
@@ -28,7 +28,7 @@ const pricesSchema = new mongoose.Schema({
 
 const productsSchema = new mongoose.Schema({
   groupId : { type: mongoose.Schema.Types.ObjectId, ref: 'ProductGroups' },
-  groupVarityId : { type: mongoose.Schema.Types.ObjectId, ref: 'ProductGroupVarities' },
+  groupVarietyId : { type: mongoose.Schema.Types.ObjectId, ref: 'ProductGroupVarities' },
   originId : { type: mongoose.Schema.Types.ObjectId, ref: 'Origins' },
   purchaseUoMId : { type: mongoose.Schema.Types.ObjectId, ref: 'PurchaseUoMs' },
   sizeId : { type: mongoose.Schema.Types.ObjectId, ref: 'Sizes' },  
@@ -36,7 +36,7 @@ const productsSchema = new mongoose.Schema({
 });
 
 const ProductGroups = mongoose.model('ProductGroups', productGroupsSchema);
-const ProductGroupVarities = mongoose.model('ProductGroupVarities', productGroupVaritiesSchema);
+const ProductGroupVarieties = mongoose.model('ProductGroupVarieties', productGroupVarietiesSchema);
 const Origins = mongoose.model('Origins', originsSchema);
 const PurchaseUoMs = mongoose.model('PurchaseUoMs', purchaseUoMsSchema);
 const Sizes = mongoose.model('Sizes', sizesSchema);
@@ -44,7 +44,7 @@ const Products = mongoose.model('Products', productsSchema);
 
 module.exports = {  
   ProductGroups,
-  ProductGroupVarities,
+  ProductGroupVarieties,
   Origins,
   PurchaseUoMs,
   Sizes,
