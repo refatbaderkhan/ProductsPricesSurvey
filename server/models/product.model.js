@@ -26,13 +26,15 @@ const pricesSchema = new mongoose.Schema({
   maxPrice : Number
 });
 
-const citiesSchema = new mongoose.Schema({
-  cityName: String,
-});
-
 const countriesSchema = new mongoose.Schema({
   countryName: String,
 });
+
+const citiesSchema = new mongoose.Schema({
+  countryId : { type: mongoose.Schema.Types.ObjectId, ref: 'Countries' },
+  cityName: String,
+});
+
 
 const suppliersSchema = new mongoose.Schema({
   supplierName: String,
@@ -41,7 +43,7 @@ const suppliersSchema = new mongoose.Schema({
 });
 
 const weekNumbersSchema = new mongoose.Schema({
-  weekNumber: Number,
+  weekNumber: String,
 });
 
 const userNamesSchema = new mongoose.Schema({
@@ -49,6 +51,7 @@ const userNamesSchema = new mongoose.Schema({
 });
 
 const productsSchema = new mongoose.Schema({
+  dateOfEntry: { type: Date, default: Date.now },
   weekNumberId : { type: mongoose.Schema.Types.ObjectId, ref: 'WeekNumbers' },
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'UserNames' },
   cityId : { type: mongoose.Schema.Types.ObjectId, ref: 'Cities' },
