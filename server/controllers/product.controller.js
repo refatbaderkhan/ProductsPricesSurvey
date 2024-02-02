@@ -3,6 +3,11 @@ const { ProductGroups,
         Origins,
         PurchaseUoMs,
         Sizes,
+        Cities,
+        Countries,
+        Suppliers,
+        WeekNumbers,
+        UserNames,
         Products
       } = require('../models/product.model');
 
@@ -200,6 +205,192 @@ const createSize = async (req, res) => {
 }
 
 
+const getCities = async (req, res) => {
+  const { countryId } = req.params;
+
+  try {
+    const cities = await Cities.find({ countryId });
+    res.status(200).send(cities);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("an error occurred while getting cities");
+  }
+}
+
+
+const createCity = async (req, res) => {
+  const { cityName, countryId } = req.body;
+
+  try {
+    const city = new Cities({ cityName, countryId });
+
+    if (!city) {
+      return res.status(400).send("City Name Cannot be Empty");
+    }
+
+    const existingCity = await Cities.findOne({ cityName });
+    if (existingCity) {
+      return res.status(400).send("City Name Already Exists");
+    }
+
+    await city.save();
+
+    res.status(201).send({ city , message: "City Created Successfully" });
+  
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("an error occured while creating city");
+  }
+}
+
+
+const getCountries = async (req, res) => {
+
+  try {
+    const countries = await Countries.find();
+    res.status(200).send(countries);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("an error occured while getting countries");
+  }
+}
+
+
+const createCountry = async (req, res) => {
+  const { countryName } = req.body;
+
+  try {
+    const country = new Countries({ countryName });
+
+    if (!country) {
+      return res.status(400).send("Country Name Cannot be Empty");
+    }
+
+    const existingCountry = await Countries.findOne({ countryName });
+    if (existingCountry) {
+      return res.status(400).send("Country Name Already Exists");
+    }
+
+    await country.save();
+
+    res.status(201).send({ country , message: "Country Created Successfully" });
+  
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("an error occured while creating country");
+  }
+}
+
+
+const getSuppliers = async (req, res) => {
+  const { cityId, countryId } = req.params;
+
+  try {
+    const suppliers = await Suppliers.find({ cityId, countryId });
+    res.status(200).send(suppliers);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("an error occured while getting suppliers");
+  }
+}
+
+
+const createSupplier = async (req, res) => {
+  const { supplierName, cityId, countryId } = req.body;
+
+  try {
+    const supplier = new Suppliers({ supplierName, cityId, countryId });
+
+    if (!supplier) {
+      return res.status(400).send("Supplier Name Cannot be Empty");
+    }
+
+    await supplier.save();
+
+    res.status(201).send({ supplier , message: "Supplier Created Successfully" });
+  
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred while creating supplier");
+  }
+}
+
+
+const getWeekNumbers = async (req, res) => {
+  
+  try {
+    const weekNumbers = await WeekNumbers.find();
+    res.status(200).send(weekNumbers);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("an error occured while getting week numbers");
+  }
+}
+
+
+const createWeekNumber = async (req, res) => {
+  const { weekNumber } = req.body;
+
+  try {
+    const weekNo = new WeekNumbers({ weekNumber });
+
+    if (!weekNo) {
+      return res.status(400).send("Week Number Cannot be Empty");
+    }
+
+    await weekNo.save();
+
+    res.status(201).send({ weekNumber , message: "Week Number Created Successfully" });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("an error occured while creating week number");
+  }
+}
+
+
+const getUserNames = async (req, res) => {
+    
+  try {
+    const userNames = await UserNames.find();
+    res.status(200).send(userNames);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("an error occured while getting user names");
+  }
+}
+
+const createUserName = async (req, res) => {
+  const { userName } = req.body;
+
+  try {
+    const newUserName = new UserNames({ userName });
+
+    if (!newUserName) {
+      return res.status(400).send("User Name Cannot be Empty");
+    }
+
+    const existingUserName = await UserNames.findOne({ userName });
+    if (existingUserName) {
+      return res.status(400).send("User Name Already Exists");
+    }
+
+    await newUserName.save();
+
+    res.status(201).send({ newUserName , message: "User Name Created Successfully" });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("an error occured while creating user name");
+  }
+}
+
+
 const getProducts = async (req, res) => {
 
   try {
@@ -251,5 +442,15 @@ module.exports = {
   getSizes,
   createSize,
   getProducts,
-  createProduct
+  createProduct,
+  getCities,
+  createCity,
+  getCountries,
+  createCountry,
+  getSuppliers,
+  createSupplier,
+  getWeekNumbers,
+  createWeekNumber,
+  getUserNames,
+  createUserName
 }
