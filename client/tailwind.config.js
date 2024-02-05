@@ -18,10 +18,13 @@ module.exports = {
     },
     extend: {
       colors: {
+        odooGreen : '#34979C',
+        odooOffwhite : '#F6F6F6',
+        odooRed: '#685563',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: "#F6F6F6",
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -56,6 +59,9 @@ module.exports = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      spacing: {
+        '2%': '2%'
       },
       keyframes: {
         "accordion-down": {
